@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsBoolean } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateTaskDto {
   private _title: string;
   private _description?: string;
-  private _completed: boolean;
+  private _completed?: boolean;
 
   @IsNotEmpty()
   get title(): string {
@@ -20,11 +20,11 @@ export class CreateTaskDto {
     this._description = value;
   }
 
-  @IsBoolean()
-  get completed(): boolean {
+  @IsOptional()
+  get completed(): boolean | undefined {
     return this._completed;
   }
-  set completed(value: boolean) {
+  set completed(value: boolean | undefined) {
     this._completed = value;
   }
 }
