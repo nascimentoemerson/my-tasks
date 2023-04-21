@@ -2,30 +2,41 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Task } from '../models/task.model';
+import { CreateTaskDto } from '../dto/task.dto';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class TaskService {
   constructor(@InjectModel('Task') private readonly taskModel: Model<Task>) {}
 
-  async findAll(): Promise<Task[]> {
-    return this.taskModel.find().exec();
+  async create(createTaskDto: CreateTaskDto): Promise<Task> {
+    const task = plainToClass(Task, createTaskDto);
+    const createdTask = new this.taskModel(task);
+    return await createdTask.save();
+  }
+
+  async findAll(page: number, limit: number, sort: string): Promise<Task[]> {
+    const skip = (page - 1) * limit;
+    return await this.taskModel
+      .find()
+      .skip(skip)
+      .limit(limit)
+      .sort(sort)
+      .exec();
   }
 
   async findById(id: string): Promise<Task> {
-    return this.taskModel.findById(id).exec();
+    return await this.taskModel.findById(id).exec();
   }
 
-  async create(newTask: Task): Promise<Task> {
-    const createdTask = new this.taskModel(newTask);
-    return createdTask.save();
+  async update(id: string, createTaskDto: CreateTaskDto): Promise<Task> {
+    const task = plainToClass(Task, createTaskDto);
+    return await this.taskModel
+      .findByIdAndUpdate(id, task, { new: true })
+      .exec();
   }
 
-  async update(id: string, updatedTask: Task): Promise<Task> {
-    await this.taskModel.updateOne({ _id: id }, updatedTask).exec();
-    return this.findById(id);
-  }
-
-  async delete(taskId: string): Promise<void> {
-    await this.taskModel.deleteOne({ _id: taskId }).exec();
+  async delete(id: string): Promise<void> {
+    await this.taskModel.findByIdAndDelete(id).exec();
   }
 }
