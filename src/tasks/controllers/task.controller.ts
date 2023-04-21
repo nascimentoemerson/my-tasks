@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { TaskService } from '../services/task.service';
 import { Task } from '../models/task.model';
@@ -17,14 +16,9 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Get()
-  async findAll(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Query('sort') sort: string,
-  ): Promise<Task[]> {
-    return await this.taskService.findAll(page, limit, sort);
+  async findAll(): Promise<Task[]> {
+    return await this.taskService.findAll();
   }
-
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Task> {
     return await this.taskService.findById(id);

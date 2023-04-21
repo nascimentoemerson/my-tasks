@@ -15,14 +15,8 @@ export class TaskService {
     return await createdTask.save();
   }
 
-  async findAll(page: number, limit: number, sort: string): Promise<Task[]> {
-    const skip = (page - 1) * limit;
-    return await this.taskModel
-      .find()
-      .skip(skip)
-      .limit(limit)
-      .sort(sort)
-      .exec();
+  async findAll(): Promise<Task[]> {
+    return await this.taskModel.find().exec();
   }
 
   async findById(id: string): Promise<Task> {
