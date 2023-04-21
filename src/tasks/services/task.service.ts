@@ -14,7 +14,7 @@ export class TaskService {
     const createdTask = new this.taskModel(task);
     return await createdTask.save();
   }
-
+  
   async findAll(): Promise<Task[]> {
     return await this.taskModel.find().exec();
   }

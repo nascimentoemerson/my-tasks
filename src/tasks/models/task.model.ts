@@ -9,7 +9,7 @@ export class Task extends Document {
   @Prop({ required: false })
   description?: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false, default: false })
   completed: boolean;
 
   @Prop({ required: true, default: Date.now })
