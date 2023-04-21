@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TaskController } from './controllers/task.controller';
 import { TaskService } from './services/task.service';
-import { TaskSchema } from './schemas/task.schema';
+import { TaskSchema } from './models/task.model';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CreateTaskDto } from './dto/task.dto';
 

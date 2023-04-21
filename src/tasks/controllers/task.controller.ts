@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  ValidationPipe,
 } from '@nestjs/common';
 import { TaskService } from '../services/task.service';
 import { Task } from '../models/task.model';
@@ -25,8 +26,10 @@ export class TaskController {
   }
 
   @Post()
-  async create(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-    return await this.taskService.create(createTaskDto);
+  async create(
+    @Body(new ValidationPipe()) createTaskDto: CreateTaskDto,
+  ): Promise<Task> {
+    return this.taskService.create(createTaskDto);
   }
 
   @Put(':id')
