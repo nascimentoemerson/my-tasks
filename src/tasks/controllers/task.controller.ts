@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   ValidationPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { TaskService } from '../services/task.service';
 import { Task } from '../models/task.model';
@@ -20,6 +21,7 @@ export class TaskController {
   async findAll(): Promise<Task[]> {
     return await this.taskService.findAll();
   }
+
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Task> {
     return await this.taskService.findById(id);
@@ -37,7 +39,11 @@ export class TaskController {
     @Param('id') id: string,
     @Body() updateTaskDto: CreateTaskDto,
   ): Promise<Task> {
-    return await this.taskService.update(id, updateTaskDto);
+    const updatedTask = await this.taskService.update(id, updateTaskDto);
+    if (!updatedTask) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+    return updatedTask;
   }
 
   @Delete(':id')

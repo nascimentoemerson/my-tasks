@@ -26,11 +26,17 @@ export class TaskService {
     return await this.taskModel.findById(id).exec();
   }
 
-  async update(id: string, createTaskDto: CreateTaskDto): Promise<Task> {
-    const task = plainToClass(Task, createTaskDto);
-    return await this.taskModel
-      .findByIdAndUpdate(id, task, { new: true })
-      .exec();
+  async update(id: string, updateTaskDto: CreateTaskDto): Promise<Task> {
+    const task = await this.taskModel.findById(id);
+    if (!task) {
+      return null;
+    }
+    const updatedTask = await this.taskModel.findOneAndUpdate(
+      { _id: id },
+      { $set: updateTaskDto },
+      { new: true },
+    );
+    return updatedTask;
   }
 
   async delete(id: string): Promise<void> {
