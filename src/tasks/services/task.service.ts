@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Task } from '../models/task.model';
 import { CreateTaskDto } from '../dto/task.dto';
-import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class TaskService {
@@ -13,7 +12,7 @@ export class TaskService {
     const task = new this.taskModel({
       title: createTaskDto.title,
       description: createTaskDto.description,
-      completed: false, // Definir valor padrão
+      completed: false, 
     });
     return await task.save();
   }
