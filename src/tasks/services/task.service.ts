@@ -1,32 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { Task } from './task';
-import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-
+import { Model } from 'mongoose';
+import { Task } from '../models/task.model';
 
 @Injectable()
 export class TaskService {
   constructor(@InjectModel('Task') private readonly taskModel: Model<Task>) {}
 
-  async getAll() {
-    return await this.taskModel.find().exec();
+  async findAll(): Promise<Task[]> {
+    return this.taskModel.find().exec();
   }
 
-  async getById(id: string) {
-    return await this.taskModel.findById(id).exec();
+  async findById(id: string): Promise<Task> {
+    return this.taskModel.findById(id).exec();
   }
 
-  async create(task: Task) {
-    const createdTask = new this.taskModel(task);
-    return await createdTask.save();
+  async create(newTask: Task): Promise<Task> {
+    const createdTask = new this.taskModel(newTask);
+    return createdTask.save();
   }
 
-  async update(id: string, task: Task) {
-    await this.taskModel.updateOne({ _id: id }, task).exec();
-    return this.getById(id);
+  async update(id: string, updatedTask: Task): Promise<Task> {
+    await this.taskModel.updateOne({ _id: id }, updatedTask).exec();
+    return this.findById(id);
   }
 
-  async delete(id: string) {
-    return await this.taskModel.deleteOne({ _id: id }).exec();
+  async delete(taskId: string): Promise<void> {
+    await this.taskModel.deleteOne({ _id: taskId }).exec();
   }
 }

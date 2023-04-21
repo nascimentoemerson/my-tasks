@@ -8,20 +8,20 @@ import {
   Put,
 } from '@nestjs/common';
 import { TaskService } from '../services/task.service';
-import { Task } from '../services/task';
+import { Task } from '../models/task.model';
 
 @Controller('tasks')
 export class TaskController {
-  constructor(private taskService: TaskService) {}
+  constructor(private readonly taskService: TaskService) {}
 
   @Get()
-  async getAll(): Promise<Task[]> {
-    return this.taskService.getAll();
+  async findAll(): Promise<Task[]> {
+    return this.taskService.findAll();
   }
 
   @Get(':id')
-  async getById(@Param('id') id: string): Promise<Task> {
-    return this.taskService.getById(id);
+  async findById(@Param('id') id: string): Promise<Task> {
+    return this.taskService.findById(id);
   }
 
   @Post()
@@ -35,7 +35,7 @@ export class TaskController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
-    this.taskService.delete(id);
+  async delete(@Param('id') id: string): Promise<void> {
+    return this.taskService.delete(id);
   }
 }
