@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 
 import { TaskService } from '../services/task.service';
-import { Task } from '../models/task.model';
-import { CreateTaskDto } from '../dto/task.dto';
+import { Task } from 'src/models/task.model';
+import { CreateTaskDto } from 'src/dto/task.dto';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 
