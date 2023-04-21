@@ -6,8 +6,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://teste:teste@cluster0.74yrmuc.mongodb.net/?retryWrites=true&w=majority'),
-    TaskModule],
+    MongooseModule.forRoot(
+      'mongodb+srv://emerson776475:teste@cluster0.74yrmuc.mongodb.net/?retryWrites=true&w=majority',
+    ),
+    TaskModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
