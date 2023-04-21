@@ -22,7 +22,7 @@ export class TaskService {
   }
 
   async update(id: string, task: Task) {
-    await this.taskModel.updateOne({ id: id }, task).exec();
+    await this.taskModel.updateOne({ _id: id }, task).exec();
     return this.getById(id);
   }
 
