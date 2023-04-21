@@ -12,7 +12,7 @@ export class TaskService {
     const task = new this.taskModel({
       title: createTaskDto.title,
       description: createTaskDto.description,
-      completed: false, 
+      completed: false,
     });
     return await task.save();
   }
