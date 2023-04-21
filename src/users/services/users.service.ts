@@ -8,6 +8,10 @@ export class UsersService {
     { id: 2, username: 'user', password: 'user', role: 'USER' },
   ];
 
+  async findOne(id: number): Promise<User> {
+    return this.users.find((user) => user.id === id);
+  }
+
   async findByUsername(username: string): Promise<User> {
     return this.users.find((user) => user.username === username);
   }
