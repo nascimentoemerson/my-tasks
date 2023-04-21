@@ -10,11 +10,14 @@ export class TaskService {
   constructor(@InjectModel('Task') private readonly taskModel: Model<Task>) {}
 
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
-    const task = plainToClass(Task, createTaskDto);
-    const createdTask = new this.taskModel(task);
-    return await createdTask.save();
+    const task = new this.taskModel({
+      title: createTaskDto.title,
+      description: createTaskDto.description,
+      completed: false, // Definir valor padrão
+    });
+    return await task.save();
   }
-  
+
   async findAll(): Promise<Task[]> {
     return await this.taskModel.find().exec();
   }
