@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TaskController } from '../controllers/task.controller';
-import { TaskService } from '../services/task.service';
-import { TaskSchema } from '../models/task.model';
+import { TaskController } from './task.controller';
+import { TaskService } from './shared/task.service';
+import { TaskSchema } from './schemas/task.schemas';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CreateTaskDto } from '../dto/task.dto';
+import { CreateTaskDto } from './shared/task.dto';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'Task', schema: TaskSchema }])],

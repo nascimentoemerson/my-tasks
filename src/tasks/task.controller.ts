@@ -10,9 +10,9 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { TaskService } from '../services/task.service';
-import { Task } from 'src/models/task.model';
-import { CreateTaskDto } from 'src/dto/task.dto';
+import { TaskService } from './shared/task.service';
+import { Task } from 'src/tasks/schemas/task.schemas';
+import { CreateTaskDto } from 'src/tasks/shared/task.dto';
 
 @Controller('tasks')
 export class TaskController {
