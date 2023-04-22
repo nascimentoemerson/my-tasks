@@ -29,7 +29,7 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  @ApiOperation({ summary: 'Filtrar usauario por id' })
+  @ApiOperation({ summary: 'Filtrar usuario por id' })
   async getById(@Param('id') id: string): Promise<User> {
     return this.usersService.getById(id);
   }
