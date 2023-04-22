@@ -15,7 +15,7 @@ import { TaskService } from './shared/task.service';
 import { Task } from 'src/tasks/schemas/task.schemas';
 import { CreateTaskDto } from 'src/tasks/shared/task.dto';
 import { JwtAuthGuard } from 'src/auth/shared/jwt-auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Tasks')
 @Controller('tasks')
@@ -24,18 +24,21 @@ export class TaskController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
+  @ApiOperation({ summary: 'Listar todos as tarefas' })
   async findAll(): Promise<Task[]> {
     return await this.taskService.findAll();
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
+  @ApiOperation({ summary: 'Filtrar tarefa pelo id' })
   async findById(@Param('id') id: string): Promise<Task> {
     return await this.taskService.findById(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
+  @ApiOperation({ summary: 'Criar uma nova Tarefa' })
   async create(
     @Body(new ValidationPipe()) createTaskDto: CreateTaskDto,
   ): Promise<Task> {
@@ -44,6 +47,7 @@ export class TaskController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
+  @ApiOperation({ summary: 'Editar uma tarefa' })
   async update(
     @Param('id') id: string,
     @Body() updateTaskDto: CreateTaskDto,
@@ -57,6 +61,7 @@ export class TaskController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @ApiOperation({ summary: 'Deletar uma tarefa' })
   async delete(@Param('id') id: string): Promise<void> {
     return await this.taskService.delete(id);
   }
