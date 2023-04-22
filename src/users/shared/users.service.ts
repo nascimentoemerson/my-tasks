@@ -1,7 +1,8 @@
 import { User } from './user';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
+import { UpdateUserDto } from './update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -24,8 +25,27 @@ export class UsersService {
     return await createdUser.save();
   }
 
-  async update(id: string, user: User) {
-    await this.userModel.updateOne({ _id: id }, User).exec();
-    return this.getById(id);
+  async updateUser(id: string, updateUserData: UpdateUserDto): Promise<User> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      id,
+      updateUserData,
+      { new: true },
+    );
+
+    if (!updatedUser) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return updatedUser;
+  }
+
+  async deleteUser(id: string): Promise<User> {
+    const deletedUser = await this.userModel.findByIdAndDelete(id);
+
+    if (!deletedUser) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return deletedUser;
   }
 }
