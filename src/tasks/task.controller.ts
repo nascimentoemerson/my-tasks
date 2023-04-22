@@ -15,7 +15,9 @@ import { TaskService } from './shared/task.service';
 import { Task } from 'src/tasks/schemas/task.schemas';
 import { CreateTaskDto } from 'src/tasks/shared/task.dto';
 import { JwtAuthGuard } from 'src/auth/shared/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Tasks')
 @Controller('tasks')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
