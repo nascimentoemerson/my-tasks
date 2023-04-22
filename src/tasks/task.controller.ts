@@ -8,26 +8,31 @@ import {
   ValidationPipe,
   NotFoundException,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 
 import { TaskService } from './shared/task.service';
 import { Task } from 'src/tasks/schemas/task.schemas';
 import { CreateTaskDto } from 'src/tasks/shared/task.dto';
+import { JwtAuthGuard } from 'src/auth/shared/jwt-auth.guard';
 
 @Controller('tasks')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<Task[]> {
     return await this.taskService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Task> {
     return await this.taskService.findById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(
     @Body(new ValidationPipe()) createTaskDto: CreateTaskDto,
@@ -35,6 +40,7 @@ export class TaskController {
     return this.taskService.create(createTaskDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -47,6 +53,7 @@ export class TaskController {
     return updatedTask;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<void> {
     return await this.taskService.delete(id);
