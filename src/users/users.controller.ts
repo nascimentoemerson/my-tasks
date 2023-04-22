@@ -1,4 +1,4 @@
-import { User } from './schemas/users.schemas';
+import { User } from './shared/user';
 import { UsersService } from './shared/users.service';
 import { Controller, Get, Param, Body, Post, Put } from '@nestjs/common';
 

@@ -1,7 +1,7 @@
-import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 
-export class User extends Document {
-  name: string;
-  email: string;
-  password: string;
-}
+export const UserSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+});

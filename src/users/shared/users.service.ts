@@ -1,4 +1,4 @@
-import { User } from '../schemas/users.schemas';
+import { User } from './user';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -15,7 +15,7 @@ export class UsersService {
     return await this.userModel.findById(id).exec();
   }
 
-  async getByemail(email: string) {
+  async getByEmail(email: string) {
     return await this.userModel.findOne({ email }).exec();
   }
 
