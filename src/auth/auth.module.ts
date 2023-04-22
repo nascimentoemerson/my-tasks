@@ -8,5 +8,6 @@ import { AuthController } from './auth.controllers';
   imports: [UsersModule],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}
