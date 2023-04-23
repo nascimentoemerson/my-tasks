@@ -1,1 +1,1 @@
-web: npm run start:prod
+web: node dist/main.js --max_old_space_size=256
