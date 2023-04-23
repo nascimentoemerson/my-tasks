@@ -10,9 +10,7 @@ import { customHeaderMiddleware } from './middleware/custom-header.middleware';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://emerson776475:teste@cluster0.74yrmuc.mongodb.net/?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
     UsersModule,
     TaskModule,
