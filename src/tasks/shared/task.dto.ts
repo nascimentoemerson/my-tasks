@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateTaskDto {
@@ -5,6 +6,7 @@ export class CreateTaskDto {
   private _description?: string;
   private _completed?: boolean;
 
+  @ApiProperty()
   @IsNotEmpty()
   get title(): string {
     return this._title;
@@ -13,13 +15,14 @@ export class CreateTaskDto {
     this._title = value;
   }
 
+  @ApiProperty()
   get description(): string | undefined {
     return this._description;
   }
   set description(value: string | undefined) {
     this._description = value;
   }
-
+  
   @IsOptional()
   get completed(): boolean | undefined {
     return this._completed;
