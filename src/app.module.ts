@@ -13,9 +13,9 @@ import { customHeaderMiddleware } from './middleware/custom-header.middleware';
     MongooseModule.forRoot(
       'mongodb+srv://emerson776475:teste@cluster0.74yrmuc.mongodb.net/?retryWrites=true&w=majority',
     ),
-    TaskModule,
-    UsersModule,
     AuthModule,
+    UsersModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],

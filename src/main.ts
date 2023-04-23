@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('My Tasks API')
     .setDescription('API for managing tasks')
     .setVersion('1.0')
-    .addTag('tasks')
     .addBearerAuth()
     .build();
 
