@@ -4,14 +4,14 @@ import { LocalAuthGuard } from './shared/local-auth.guard';
 import { Controller, Request, Post, UseGuards } from '@nestjs/common';
 
 @ApiTags('Auth')
-@Controller()
+@Controller('auth')
 @UseGuards(LocalAuthGuard)
 @ApiBearerAuth()
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @ApiSecurity('jwt', ['Bearer'])
-  @Post('auth/login')
+  @Post('login')
   @ApiBearerAuth()
   async login(@Request() req: any) {
     return this.authService.login(req.user);
